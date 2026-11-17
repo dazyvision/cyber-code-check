@@ -1,0 +1,12 @@
+{
+  "name": "cyber-code-check-local",
+  "interface": {"displayName": "CYBER Code Check"},
+  "plugins": [
+    {
+      "name": "cyber-code-check",
+      "source": {"source": "local", "path": "./plugins/cyber-code-check"},
+      "policy": {"installation": "AVAILABLE", "authentication": "ON_INSTALL"},
+      "category": "Developer Tools"
+    }
+  ]
+}

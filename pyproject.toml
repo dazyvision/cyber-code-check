@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cyber-code-check"
+version = "0.3.0"
+description = "Vérificateur statique local de code et de configurations de dépôts."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+
+[project.optional-dependencies]
+mcp = ["mcp==1.30.0"]
+
+[project.scripts]
+cyber-code-check = "cyber.__main__:main"
+cyber-code-check-mcp = "cyber.__main__:mcp_main"
+
+[tool.setuptools]
+packages = ["cyber"]

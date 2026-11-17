@@ -1,0 +1,11 @@
+{
+  "name": "example-code-review",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "echo 'Example only'"
+  },
+  "dependencies": {
+    "is-number": "7.0.0"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "cyber-code-check",
+  "version": "0.3.0",
+  "description": "Vérification statique des fichiers de code fournis dans la conversation.",
+  "author": {"name": "CYBER Code Check"},
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "CYBER — Vérificateur de code",
+        "shortDescription": "Vérifie statiquement des fichiers de code.",
+        "longDescription": "Repère des hooks npm et des réglages de CI ou d’agents à examiner. Le rapport précise les lignes, les règles et les limites.",
+        "category": "Developer Tools",
+        "capabilities": ["Read"],
+        "defaultPrompt": ["Vérifie ce package.json avec CYBER et indique les points à revoir."]
+      }
+    }
+  }
+}
