@@ -4,23 +4,18 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
   test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     strategy:
       matrix:
-        include:
-          - os: ubuntu-latest
-            python: "3.10"
-            package: "."
-          - os: macos-latest
-            python: "3.13"
-            package: ".[mcp]"
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 10
+        python: ["3.10", "3.13"]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -29,13 +24,14 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - name: Installer le paquet
-        run: python -m pip install --only-binary=:all: "$PACKAGE"
-        env:
-          PACKAGE: ${{ matrix.package }}
+        run: python -m pip install --only-binary=:all: .
+      - name: Installer l’option MCP
+        if: matrix.python == '3.13'
+        run: python -m pip install --only-binary=:all: ".[mcp]"
       - run: python -m unittest discover -s tests
       - name: Exécuter la commande installée hors du dépôt
-        working-directory: ${{ runner.temp }}
         run: |
+          cd "$RUNNER_TEMP"
           cyber-code-check --version
           cyber-code-check scan-repo "$GITHUB_WORKSPACE/examples/demo-repo" --output rapport
           cyber-code-check advisories "$GITHUB_WORKSPACE/examples/demo-repo/package-lock.json" --inventory-only
